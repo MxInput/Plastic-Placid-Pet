@@ -244,10 +244,13 @@ shape = SubResource("RectangleShape2D_2c62f")
 [node name="Regular" type="CollisionShape2D" parent="Area2D" unique_id=1431255472]
 shape = SubResource("RectangleShape2D_2c62f")
 
-[node name="Node" type="Node" parent="." unique_id=367552111]
+[node name="Unlockable" type="Node" parent="." unique_id=425754854 node_paths=PackedStringArray("duck_parent", "big_duck", "rock_duck", "large_hitbox", "small_hitbox")]
 script = ExtResource("3_gyfs4")
-
-[node name="ListContainer" type="Node" parent="." unique_id=425754854]
+duck_parent = NodePath("..")
+big_duck = NodePath("../BigDuck")
+rock_duck = NodePath("../RockDuck")
+large_hitbox = NodePath("../Area2D/Big")
+small_hitbox = NodePath("../Area2D/Regular")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

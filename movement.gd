@@ -1,8 +1,8 @@
 extends Node2D
 
-const MAX_SPEED = 300
+var max_speed = 300
 
-var speed = 300
+var speed = max_speed
 var direction = Vector2(1, 0)
 
 var screen_size = Vector2()
@@ -83,14 +83,14 @@ func _physics_process(delta: float) -> void:
 	DisplayServer.window_set_position(Vector2i(window_pos))
 	
 	if window_pos.x <= 0 or window_pos.x >= screen_size.x - window_size.x:
-		speed = MAX_SPEED
+		speed = max_speed
 		
 		if (since_last_stopped < TIME_CHECK):
 			decrement = INITIAL_DEC
 		
 		direction.x *= -1
 	if window_pos.y <= 0 or window_pos.y >= screen_size.y - window_size.y:
-		speed = MAX_SPEED
+		speed = max_speed
 		
 		if (since_last_stopped < TIME_CHECK):
 			decrement = INITIAL_DEC
@@ -98,7 +98,7 @@ func _physics_process(delta: float) -> void:
 		direction.y *= -1	
 
 func _on_area_2d_mouse_entered() -> void:
-	speed = MAX_SPEED
+	speed = max_speed
 	
 	if (since_last_stopped < TIME_CHECK):
 		decrement = INITIAL_DEC
