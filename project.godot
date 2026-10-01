@@ -15,6 +15,11 @@ run/main_scene="uid://iuhxfigv6bat"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UnlockableManager="*uid://cayct5ckrg7fu"
+AllDucks="*uid://ccub43qkw3sow"
+
 [display]
 
 window/size/viewport_width=200

@@ -1,6 +1,14 @@
+class_name Duck
 extends Resource
 
-@export var name: String
+enum Type {
+	BIG,
+	ROCK	
+}
 
-func _init(_name = ""):
+@export var name: String
+@export var type: Type
+
+func _init(_name := "", _type := Type.BIG):
 	name = _name
+	type = _type

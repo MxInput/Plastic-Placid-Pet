@@ -1,11 +1,9 @@
-extends Resource
+extends Node
 
-const duck_info = preload("duck.gd")
-
-var data = {
-	"Mother": duck_info.new("Basic Duck"),
-	"Rock": duck_info.new("Rock Duck"),
-	"Large": duck_info.new("Large Duck"),
-	"Cat": duck_info.new("Cat Duck"),
-	"Gold": duck_info.new("Gold Duck")
+@export var data = {
+	"Mother": Duck.new("Basic Duck"),
+	"Rock": Duck.new("Rock Duck", Duck.Type.ROCK),
+	"Large": Duck.new("Large Duck", Duck.Type.BIG),
+	"Cat": Duck.new("Cat Duck"),
+	"Gold": Duck.new("Gold Duck")
 }
