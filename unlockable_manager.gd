@@ -3,7 +3,11 @@ extends Node
 @export var duck_parent : Node2D
 
 @export var big_duck : AnimatedSprite2D
+
 @export var rock_duck : AnimatedSprite2D
+
+@export var mother_duck : AnimatedSprite2D
+@export var child_duck : AnimatedSprite2D
 
 @export var large_hitbox : CollisionShape2D
 @export var small_hitbox : CollisionShape2D
@@ -26,12 +30,18 @@ func swap_duck(duck) -> void:
 			small_hitbox.visible = true
 			
 			rock_duck.visible = true
+		Duck.Type.MOTHER:
+			duck_parent.sprite = mother_duck
+			small_hitbox.visible = true
+			
+			mother_duck.visible = true
+			child_duck.visible = true
 			
 func _ready() -> void:
 	if (!DuckInfo.played_before):
 		DuckInfo.played_before = true
 		
-		DuckInfo.current_duck = AllDucks.data["Rock"]
+		DuckInfo.current_duck = AllDucks.data["Mother"]
 		swap_duck(DuckInfo.current_duck)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
