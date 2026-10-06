@@ -12,11 +12,13 @@ extends Node
 @export var large_hitbox : CollisionShape2D
 @export var small_hitbox : CollisionShape2D
 
+var save_shortcut = Shortcut.new()
+
 func swap_duck(duck) -> void:
 	duck_parent.max_speed = duck.speed
 	
 	for child in duck_parent.get_children():
-		if (!child.is_class("Node")):
+		if (child.is_class("AnimatedSprite2D")):
 			child.visible = false
 
 	match (duck.type):
@@ -38,12 +40,26 @@ func swap_duck(duck) -> void:
 			child_duck.visible = true
 			
 func _ready() -> void:
+	var key_event = InputEventKey.new()
+	key_event.keycode = KEY_P
+	key_event.ctrl_pressed = true
+	key_event.command_or_control_autoremap = true
+	save_shortcut.events = [key_event]
+	
 	if (!DuckInfo.played_before):
 		DuckInfo.played_before = true
 		
 		DuckInfo.current_duck = AllDucks.data["Mother"]
+		DuckInfo.current_place = 0
 		swap_duck(DuckInfo.current_duck)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _input(event):
+	if save_shortcut.matches_event(event) and event.is_pressed() and not event.is_echo():
+		DuckInfo.current_place += 1
+		
+		if (DuckInfo.current_place >= AllDucks.data.size()):
+			DuckInfo.current_place = 0
+			
+		DuckInfo.current_duck = AllDucks.data.get(AllDucks.data.keys()[DuckInfo.current_place])
+		
+		swap_duck(DuckInfo.current_duck)

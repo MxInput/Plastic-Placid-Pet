@@ -435,7 +435,7 @@ position = Vector2(-63, 0)
 sprite_frames = SubResource("SpriteFrames_opjno")
 animation = &"down"
 autoplay = "left"
-frame_progress = 0.91899335
+frame_progress = 0.01127841
 
 [node name="BigDuck4" type="AnimatedSprite2D" parent="." unique_id=1548456992]
 visible = false

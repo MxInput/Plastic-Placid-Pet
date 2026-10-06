@@ -89,8 +89,9 @@ func _process(delta: float) -> void:
 				sprite.play("up_right")
 	
 	if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
-		child_sprite.position = Vector2(64 * direction.x, 64 * -direction.y)
-		print(direction)
+		if (direction != Vector2(0, 0)):
+			child_sprite.position = Vector2(64 * direction.x, 64 * -direction.y)
+		
 	
 func _physics_process(delta: float) -> void:
 	var window_pos = Vector2(DisplayServer.window_get_position())
