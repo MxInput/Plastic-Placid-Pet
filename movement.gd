@@ -100,7 +100,9 @@ func _process(delta: float) -> void:
 		if (warp_timer.is_stopped()):
 			warp_timer.wait_time = randi_range(MIN_WARP_TIME, MAX_WARP_TIME)
 			warp_timer.start()
-			
+		speed = 0
+		decrement = 0
+		
 	if (DuckInfo.current_duck.type == Duck.Type.CAT):
 		var mouse_pos = get_local_mouse_position()
 		direction = Vector2(clamp(mouse_pos.x, -1, 1), clamp(mouse_pos.y, -1, 1))
@@ -143,5 +145,52 @@ func _on_area_2d_mouse_exited() -> void:
 	touching = false
 
 func _on_warp_timer_timeout() -> void:
-	if (duck)
-	pass # Replace with function body.
+	var rand_x_pos = randi_range(0, screen_size.x - window_size.x)
+	var rand_y_pos = randi_range(0, screen_size.y - window_size.y)
+	
+	var window_pos = Vector2(DisplayServer.window_get_position())
+
+	window_pos = Vector2(rand_x_pos, rand_y_pos)
+	
+	DisplayServer.window_set_position(Vector2i(window_pos))
+
+	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
+			
+	if not direction.is_zero_approx():
+		var angle = direction.angle()
+		var offset = angle / (PI/4)
+		var index = wrapi(int(offset), 0, 8)
+		
+		match (index):
+			0:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("right")
+				sprite.play("right")
+			1:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("down_right")
+				sprite.play("down_right")
+			2:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("down")
+				sprite.play("down")	
+			3:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("down_left")
+				sprite.play("down_left")
+			4:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("left")
+				sprite.play("left")
+			5:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("up_left")
+				sprite.play("up_left")
+			6:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("up")
+				sprite.play("up")
+			7:
+				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
+					child_sprite.play("up_right")
+				sprite.play("up_right")
