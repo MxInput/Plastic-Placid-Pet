@@ -14,6 +14,9 @@ extends Node
 @export var wizard_duck : AnimatedSprite2D
 @export var warp_timer : Timer
 
+@export var toot_duck : AnimatedSprite2D
+@export var toot_timer : Timer
+
 @export var large_hitbox : CollisionShape2D
 @export var small_hitbox : CollisionShape2D
 
@@ -59,6 +62,12 @@ func swap_duck(duck) -> void:
 			large_hitbox.visible = false
 			
 			wizard_duck.visible = true
+		Duck.Type.TOOT:
+			duck_parent.sprite = toot_duck
+			small_hitbox.visible = true
+			large_hitbox.visible = false
+			
+			toot_duck.visible = true
 			
 func _ready() -> void:
 	var key_event = InputEventKey.new()
@@ -70,7 +79,7 @@ func _ready() -> void:
 	if (!DuckInfo.played_before):
 		DuckInfo.played_before = true
 		
-		DuckInfo.current_duck = AllDucks.data["Wizard"]
+		DuckInfo.current_duck = AllDucks.data["Tooter"]
 		DuckInfo.current_place = 0
 		swap_duck(DuckInfo.current_duck)
 
@@ -84,6 +93,9 @@ func _input(event):
 		DuckInfo.current_duck = AllDucks.data.get(AllDucks.data.keys()[DuckInfo.current_place])
 		if (DuckInfo.current_duck != AllDucks.data["Wizard"]):
 			warp_timer.stop()
+		if (DuckInfo.current_duck != AllDucks.data["Tooter"]):
+			toot_timer.stop()
+			duck_parent.finished_tooting = true
 		
 		duck_parent.speed = 0
 		swap_duck(DuckInfo.current_duck)

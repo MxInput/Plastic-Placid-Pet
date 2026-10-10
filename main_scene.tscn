@@ -4,10 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://nnyxgmakf76b" path="res://assets/images/duck_sprite.png" id="2_66tet"]
 [ext_resource type="Texture2D" uid="uid://cucspm70opef1" path="res://assets/images/rock_sprite.png" id="2_d5x1h"]
 [ext_resource type="Texture2D" uid="uid://nvglhcujq7o5" path="res://assets/images/cat_duck.png" id="2_hq1ik"]
+[ext_resource type="AudioStream" uid="uid://dff20m7fnv80s" path="res://assets/sfx/trumpet1.mp3" id="2_wr18j"]
 [ext_resource type="Script" uid="uid://cayct5ckrg7fu" path="res://unlockable_manager.gd" id="3_gyfs4"]
+[ext_resource type="AudioStream" uid="uid://ds3fke6qua5kt" path="res://assets/sfx/trumpet2.mp3" id="3_mo76n"]
 [ext_resource type="Texture2D" uid="uid://bkj05aap0p875" path="res://assets/images/mother_sprite.png" id="4_8mm7a"]
+[ext_resource type="AudioStream" uid="uid://dfv5cpwc057q3" path="res://assets/sfx/trumpet3.mp3" id="4_42l1d"]
+[ext_resource type="AudioStream" uid="uid://c0lh26t3ag7n0" path="res://assets/sfx/trumpet4.mp3" id="5_2jcla"]
 [ext_resource type="Texture2D" uid="uid://cxtg7sb2r84te" path="res://assets/images/baby_sprite.png" id="5_hq1ik"]
 [ext_resource type="Texture2D" uid="uid://cbtonlo8xbkks" path="res://assets/images/wizard_duck.png" id="6_nfk4m"]
+[ext_resource type="Texture2D" uid="uid://c10cb2gblhl5t" path="res://assets/images/toot_duck.png" id="7_7ycvg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38t8r"]
 atlas = ExtResource("2_66tet")
@@ -504,6 +509,105 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_si2mt"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sp30j"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(250, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tmle"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(200, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya33n"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wiol"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6a02w"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clqk1"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(350, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxe4o"]
+atlas = ExtResource("7_7ycvg")
+region = Rect2(300, 0, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8quq7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_si2mt")
+}],
+"loop": 1,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sp30j")
+}],
+"loop": 1,
+"name": &"down_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tmle")
+}],
+"loop": 1,
+"name": &"down_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya33n")
+}],
+"loop": 1,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wiol")
+}],
+"loop": 1,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6a02w")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clqk1")
+}],
+"loop": 1,
+"name": &"up_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxe4o")
+}],
+"loop": 1,
+"name": &"up_right",
+"speed": 5.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_xy6fp"]
 atlas = ExtResource("6_nfk4m")
 region = Rect2(0, 0, 50, 50)
@@ -606,12 +710,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(50, 50)
 
-[node name="Node2D" type="Node2D" unique_id=571961988 node_paths=PackedStringArray("sprite", "child_sprite", "warp_timer")]
+[node name="Node2D" type="Node2D" unique_id=571961988 node_paths=PackedStringArray("sprite", "child_sprite", "warp_timer", "toot_player", "toot_timer")]
 position = Vector2(100, 100)
 script = ExtResource("1_2c62f")
 sprite = NodePath("BigDuck")
 child_sprite = NodePath("ChildDuck")
 warp_timer = NodePath("WizardDuck/WarpTimer")
+toot_player = NodePath("TootDuck/AudioStreamPlayer")
+trumpet1 = ExtResource("2_wr18j")
+trumpet2 = ExtResource("3_mo76n")
+trumpet3 = ExtResource("4_42l1d")
+trumpet4 = ExtResource("5_2jcla")
+toot_timer = NodePath("TootDuck/TootTimer")
 
 [node name="BigDuck" type="AnimatedSprite2D" parent="." unique_id=2043192495]
 visible = false
@@ -645,6 +755,16 @@ sprite_frames = SubResource("SpriteFrames_k7kep")
 animation = &"up_right"
 autoplay = "left"
 
+[node name="TootDuck" type="AnimatedSprite2D" parent="." unique_id=1717098041]
+sprite_frames = SubResource("SpriteFrames_8quq7")
+animation = &"up"
+autoplay = "left"
+
+[node name="TootTimer" type="Timer" parent="TootDuck" unique_id=2061801635]
+ignore_time_scale = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="TootDuck" unique_id=1375371529]
+
 [node name="WizardDuck" type="AnimatedSprite2D" parent="." unique_id=236217441]
 visible = false
 sprite_frames = SubResource("SpriteFrames_38t8r")
@@ -663,7 +783,7 @@ shape = SubResource("RectangleShape2D_2c62f")
 [node name="Regular" type="CollisionShape2D" parent="Area2D" unique_id=1431255472]
 shape = SubResource("RectangleShape2D_2c62f")
 
-[node name="Unlockable" type="Node" parent="." unique_id=425754854 node_paths=PackedStringArray("duck_parent", "big_duck", "rock_duck", "mother_duck", "child_duck", "cat_duck", "wizard_duck", "warp_timer", "large_hitbox", "small_hitbox")]
+[node name="Unlockable" type="Node" parent="." unique_id=425754854 node_paths=PackedStringArray("duck_parent", "big_duck", "rock_duck", "mother_duck", "child_duck", "cat_duck", "wizard_duck", "warp_timer", "toot_duck", "toot_timer", "large_hitbox", "small_hitbox")]
 script = ExtResource("3_gyfs4")
 duck_parent = NodePath("..")
 big_duck = NodePath("../BigDuck")
@@ -673,9 +793,13 @@ child_duck = NodePath("../ChildDuck")
 cat_duck = NodePath("../CatDuck")
 wizard_duck = NodePath("../WizardDuck")
 warp_timer = NodePath("../WizardDuck/WarpTimer")
+toot_duck = NodePath("../TootDuck")
+toot_timer = NodePath("../TootDuck/TootTimer")
 large_hitbox = NodePath("../Area2D/Big")
 small_hitbox = NodePath("../Area2D/Regular")
 
+[connection signal="timeout" from="TootDuck/TootTimer" to="." method="_on_toot_timer_timeout"]
+[connection signal="finished" from="TootDuck/AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="timeout" from="WizardDuck/WarpTimer" to="." method="_on_warp_timer_timeout"]
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

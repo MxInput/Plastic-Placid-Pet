@@ -6,7 +6,8 @@ enum Type {
 	ROCK,
 	MOTHER,
 	CAT,
-	WIZARD
+	WIZARD,
+	TOOT
 }
 
 @export var name: String

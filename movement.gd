@@ -27,6 +27,22 @@ var since_last_stopped = 0
 const MAX_WARP_TIME := 30
 const MIN_WARP_TIME := 5
 
+@export var toot_player : AudioStreamPlayer
+
+@export var trumpet1 : AudioStream
+@export var trumpet2 : AudioStream
+@export var trumpet3 : AudioStream
+@export var trumpet4 : AudioStream
+
+@onready var trumpet_sounds := [trumpet1, trumpet2, trumpet3, trumpet4]
+
+@export var toot_timer : Timer
+
+const MAX_TOOT_TIME := 15
+const MIN_TOOT_TIME := 10
+
+var finished_tooting := true
+
 func _ready():
 	screen_size = Vector2(DisplayServer.screen_get_size())
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
@@ -92,6 +108,12 @@ func _process(delta: float) -> void:
 					child_sprite.play("up_right")
 				sprite.play("up_right")
 		
+		
+	if (DuckInfo.current_duck.type == Duck.Type.TOOT):
+		if (finished_tooting == true && toot_timer.is_stopped()):
+			toot_timer.wait_time = randi_range(MIN_TOOT_TIME, MAX_TOOT_TIME)
+			toot_timer.start()
+			
 	if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
 		if (direction != Vector2(0, 0)):
 			child_sprite.position = Vector2(64 * direction.x, 64 * -direction.y)
@@ -194,3 +216,13 @@ func _on_warp_timer_timeout() -> void:
 				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
 					child_sprite.play("up_right")
 				sprite.play("up_right")
+
+func _on_toot_timer_timeout() -> void:
+	finished_tooting = false
+	var random_sfx = trumpet_sounds.pick_random()
+	
+	toot_player.stream = random_sfx
+	toot_player.play()
+
+func _on_audio_stream_player_finished() -> void:
+	finished_tooting = true
