@@ -23,6 +23,10 @@ var since_last_stopped = 0
 
 @export var child_sprite : AnimatedSprite2D
 
+@export var warp_timer : Timer
+const MAX_WARP_TIME := 30
+const MIN_WARP_TIME := 5
+
 func _ready():
 	screen_size = Vector2(DisplayServer.screen_get_size())
 	direction = Vector2(randf_range(-1, 1), randf_range(-1, 1))
@@ -87,11 +91,20 @@ func _process(delta: float) -> void:
 				if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
 					child_sprite.play("up_right")
 				sprite.play("up_right")
-	
+		
 	if (DuckInfo.current_duck.type == Duck.Type.MOTHER):
 		if (direction != Vector2(0, 0)):
 			child_sprite.position = Vector2(64 * direction.x, 64 * -direction.y)
 		
+	if (DuckInfo.current_duck.type == Duck.Type.WIZARD):
+		if (warp_timer.is_stopped()):
+			warp_timer.wait_time = randi_range(MIN_WARP_TIME, MAX_WARP_TIME)
+			warp_timer.start()
+			
+	if (DuckInfo.current_duck.type == Duck.Type.CAT):
+		var mouse_pos = get_local_mouse_position()
+		direction = Vector2(clamp(mouse_pos.x, -1, 1), clamp(mouse_pos.y, -1, 1))
+		decrement = 0
 	
 func _physics_process(delta: float) -> void:
 	var window_pos = Vector2(DisplayServer.window_get_position())
@@ -128,3 +141,7 @@ func _on_area_2d_mouse_entered() -> void:
 func _on_area_2d_mouse_exited() -> void:
 	already_touched = false
 	touching = false
+
+func _on_warp_timer_timeout() -> void:
+	if (duck)
+	pass # Replace with function body.

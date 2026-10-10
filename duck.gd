@@ -4,7 +4,9 @@ extends Resource
 enum Type {
 	BIG,
 	ROCK,
-	MOTHER
+	MOTHER,
+	CAT,
+	WIZARD
 }
 
 @export var name: String
