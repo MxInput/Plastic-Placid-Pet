@@ -30,6 +30,9 @@ Inspired by Plastic Placid Duck Simulator
 2. Install Godot from https://godotengine.org/download/windows/
 3. Import the folder the repo is in into Godot to begin editing.
 
-Made in Godot
 
-Get the pet here: https://mxinput.itch.io/plastic-placid-pet
+#### Get the pet here: https://mxinput.itch.io/plastic-placid-pet
+Run the .exe file to start the pet.
+
+
+Made in Godot
