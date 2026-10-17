@@ -23,7 +23,7 @@ Inspired by Plastic Placid Duck Simulator
     - Moves quickly
     - Push with the mouse to move
  
-**Use CTRL + I to swap between ducks**
+**Click on the duck then use CTRL + I to swap between them**
 
 ### Installation Instructions
 1. Download this repo
